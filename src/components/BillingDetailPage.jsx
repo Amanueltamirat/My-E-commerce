@@ -22,14 +22,13 @@ const navigate = useNavigate()
   const submitHandler = async (e) => {
     e.preventDefault();
      const validationErrors = validate();
-     console.log(validationErrors)
         if (Object.keys(validationErrors).length === 0) {
               const data  ={
                   name,
                   email,
                   companyName
                 }
-                console.log(data)
+                clearCart()
                 navigate('/success')
                 onSuccess((prev)=>!prev)
         } else {
@@ -143,7 +142,7 @@ const navigate = useNavigate()
            <input className='outline-none border-2 h-10 w-40 rounded-md border-black' type="text" name="" placeholder='Coupon Code' id="" />
            <button className='bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700'>Apply Coupon</button>
           </div>
-         <button onClick={(e)=>{submitHandler(e), clearCart()}} className='bg-red-600 text-white px-10 py-2 rounded-md hover:bg-red-700 my-4'>Place Order</button>
+         <button onClick={(e)=>{submitHandler(e)}} className='bg-red-600 text-white px-10 py-2 rounded-md hover:bg-red-700 my-4'>Place Order</button>
      </div>
         </div>
     </div>

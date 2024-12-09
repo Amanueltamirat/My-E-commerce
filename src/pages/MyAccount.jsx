@@ -135,7 +135,7 @@ const navigate = useNavigate()
             </div>
         </div>
         <div>
-            <h1 className='text-xl text-red-500 font-semibold my-2'>{userInfo ? userInfo?.firstName?.charAt(0).toUpperCase() + userInfo?.firstName?.slice(1) : ''} Edit Your Profile</h1>
+            <h1 className='text-xl text-red-500 font-semibold my-2'>Edit Your Profile</h1>
             <div className='flex justify-between gap-5 my-5'>
                 <div className='w-1/2 my-4'>
                     <div >

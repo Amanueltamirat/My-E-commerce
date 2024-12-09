@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Hero from '../components/Hero'
-import {FaArrowRight,FaUps,FaMobile,FaArrowLeft} from "react-icons/fa";
+import {FaArrowRight,FaMobile,FaArrowLeft} from "react-icons/fa";
 import { products } from '../api/FakeApi';
 import RandomProducts from '../components/RandomProducts';
 import Context,{Cart} from '../stores/config';
@@ -65,13 +65,7 @@ function UpdateClock() {
   setHours(date.getHours())
   setMinutes(date.getMinutes());
   setSeconds(date.getSeconds());
-//   if (hours > 12) {
-    // hours = hours - 12;
-    // setEl.innerText = "PM";
-//   }
-//   hours = hours < 10 ? "0" + hours : hours;
-//   minutes = minutes < 10 ? "0" + minutes : minutes;
-//   seconds = seconds < 10 ? "0" + seconds : seconds;
+
 }
 setInterval(() => {
   UpdateClock();
@@ -239,7 +233,7 @@ setInterval(() => {
                <RandomProducts products={productsArray} count={8}/>
 
                <div className='flex justify-center mt-10'>
-                 <button className=' hover:bg-red-700 mr-20 bg-red-500 text-white px-8 py-4 rounded-md'>View All Products</button>
+                 <Link to={'/all_products'} className=' hover:bg-red-700 mr-20 bg-red-500 text-white px-8 py-4 rounded-md'>View All Products</Link>
                </div>
         </div>
 {/* ////////////////////////////////////////////////////////////// */}

@@ -78,6 +78,10 @@ const signOut = ()=>{
     })
 }
 
+const clearCart = ()=>{
+    setCart([]);
+    setWishList([])
+}
 
 const addToCart = (product,id)=>{
     const newItem = {...product, amount:1}
@@ -158,7 +162,7 @@ const decreaseQuantity = (id)=>{
 }
 
   return (
-   <CartContext.Provider value={{wishList,addToWishList,removeFromWishList,state,dispatch,itemAmount, total,increaseQuantity,decreaseQuantity, removeItem, cart, addToCart, signIn,signOut}}>{children}</CartContext.Provider>
+   <CartContext.Provider value={{wishList,addToWishList,removeFromWishList,state,dispatch,itemAmount, total,increaseQuantity,decreaseQuantity, removeItem, cart, addToCart, signIn,signOut,clearCart}}>{children}</CartContext.Provider>
   )
 }
 

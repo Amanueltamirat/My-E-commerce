@@ -9,7 +9,8 @@ function ProductByCategory({selectedCategory,count}) {
     // console.log(selectedCategory)
 
  const [randomProducts, setRandomProducts] = useState([]);
-    const {addToCart } = useContext(CartContext)
+    const {addToWishList } = useContext(CartContext)
+
 
   useEffect(() => {
         const selectedProducts = getRandomProducts(selectedCategory, count);
@@ -32,7 +33,7 @@ function ProductByCategory({selectedCategory,count}) {
                             <img className=' w-full h-28' src={product.image} alt={product.title} />
                             </div>
                             <div className='absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition duration-500'>
-                                <FaHeart onClick={()=>addToCart(product,product.id)} className='bg-white p-1 rounded-full cursor-pointer' size={22}/>
+                                <FaHeart onClick={()=>addToWishList(product,product.id)} className='bg-white p-1 rounded-full cursor-pointer' size={22}/>
                                 <Link to={`/products/${product.id}`}><FaEye className='bg-white p-1 rounded-full' size={22}/></Link> 
                             </div>
                         </div>

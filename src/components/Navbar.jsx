@@ -5,15 +5,22 @@ import {FaHeart} from "react-icons/fa";
 import {FaCartPlus} from "react-icons/fa";
 import {FaUser} from "react-icons/fa";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../stores/cartContext";
 
-function Navbar() {
+function Navbar({onSearch}) {
 
 const {itemAmount,state,wishList, dispatch: ctxDispatch } = useContext(CartContext)
 //  const { state, dispatch: ctxDispatch } = useContext(CartContext);
  
   const {  userInfo } = state;
+const navigate = useNavigate()
+const handleSearch = (e)=>{
+   e.preventDefault();
+   onSearch(e.target.value)
+   navigate('/all_products')
+
+}
 
   const signoutHandler = () => {
     ctxDispatch({
@@ -48,8 +55,8 @@ const {itemAmount,state,wishList, dispatch: ctxDispatch } = useContext(CartConte
             </div>
             <div className="flex items-center gap-5">
                 <div className="flex items-center relative">
-                    <input type="text" name="" id="" placeholder="what are you looking for?"  className="outline-none bg-gray-100 px-4 py-2 w-64 rounded-md"/>
-                    <FaSearch className="absolute right-2 cursor-pointer"/>
+                    <input onChange={(e)=>handleSearch(e)} type="text" name="" id="" placeholder="what are you looking for?"  className="outline-none bg-gray-100 px-4 py-2 w-64 rounded-md"/>
+                  <Link to={'/all_products'} className="absolute right-2" ><FaSearch className="cursor-pointer"/></Link>  
                 </div>
                 <Link className="flex  items-center relative" to={'/wishlist'}>
                  <FaHeart size={25} className="cursor-pointer"/>

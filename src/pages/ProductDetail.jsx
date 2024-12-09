@@ -37,7 +37,7 @@ const {cart} = useContext(CartContext)
       <div className='flex justify-between gap-10'>
 
           <div className='w-1/2'>
-              <img className='rounded-md bg-gray-100 p-4 w-full' src={product?.image} alt={product?.title} />
+              <img className='rounded-md bg-gray-100 p-4 w-full h-full' src={product?.image} alt={product?.title} />
           </div>
           <div className='w-1/2'>
              <h1 className='text-xl font-semibold mb-2'>{product?.title.split(' ').slice(0,4).join(' ')}</h1>

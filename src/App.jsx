@@ -16,27 +16,25 @@ import MyAccount from './pages/MyAccount.jsx';
 import WishlistPage from './pages/WishlistPage.jsx';
 import BillingDetailPage from './components/BillingDetailPage.jsx';
 import AllProducts from './pages/AllProducts.jsx';
+import { useState } from 'react';
+import PurchaseSuccessPage from './pages/PurchaseSuccess.jsx';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import { Store } from './stores/ecommerce.js';
 
 
 function App() {
 
-
-  // useEffect(()=>{
-  //   const getProducts  = async()=>{
-  //     const data = await products()
-     
-  //   }
-  //   getProducts()
-  // },[])
- 
-
- 
-
+const [success, setSuccess] = useState(false)
+const [search,setSearch] = useState('')
 
   return (
+    <div>
    <BrowserRouter>
-   <Navbar/>
+   { !success ?
+   <>
+   <Navbar search={search} onSearch ={setSearch}/>
+    <ToastContainer position="bottom-center" limit={1} />
    <Routes>
     <Route path = '/' element= {<HomePage/>}/>
     <Route path = '/products/:id' element= {<ProductDetail/>}/>
@@ -47,12 +45,18 @@ function App() {
      <Route path = '/signup' element= {<Signup/>}/>
      <Route path = '/account' element= {<MyAccount/>}/>
      <Route path = '/wishlist' element= {<WishlistPage/>}/>
-     <Route path = '/checkout' element= {<BillingDetailPage/>}/>
-     <Route path = '/all_products' element= {<AllProducts/>}/>
+     <Route path = '/checkout' element= {<BillingDetailPage onSuccess ={setSuccess}/>}/>
+     <Route path = '/all_products' element= {<AllProducts search={search}/>}/>
     <Route path = '/*' element= {<ErrorPage/>}/>
    </Routes>
    <Footer/>
+   </>
+   : <Routes>
+      <Route path='/success' element={<PurchaseSuccessPage onSuccess={setSuccess} />}/>
+    </Routes>}
    </BrowserRouter>
+
+   </div>
   );
 
   

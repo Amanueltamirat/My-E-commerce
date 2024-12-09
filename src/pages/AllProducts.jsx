@@ -5,7 +5,7 @@ import Products from '../components/Products';
 
 
 
-function AllProducts() {
+function AllProducts({search}) {
 
 const {allProducts} = useContext(Cart);
 console.log(allProducts)
@@ -17,7 +17,9 @@ console.log(allProducts)
         </div>
         <div className='grid grid-cols-4 gap-10'>
         {
-            allProducts.map((item)=>{
+            allProducts.filter((item)=>{
+              return search.toLowerCase() === '' ? item :  item.title.toLowerCase().includes(search.toLowerCase())
+            }).map((item)=>{
                 return <Products key={item.id} item={item}/>
             })
         }

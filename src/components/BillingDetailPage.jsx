@@ -1,10 +1,69 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { CartContext } from '../stores/cartContext'
 import Bill from './Bill'
+import { useNavigate } from 'react-router-dom';
 
-function BillingDetailPage() {
+function BillingDetailPage({onSuccess}) {
+
+const {clearCart} = useContext(CartContext)
+ 
+ const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [companyName, setCompanyName] = useState("");
+   const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
+     const [town, setTown] = useState("");
+   const [errors, setErrors] = useState({});
 
   const {cart, total} = useContext(CartContext)
+
+const navigate = useNavigate()
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+     const validationErrors = validate();
+     console.log(validationErrors)
+        if (Object.keys(validationErrors).length === 0) {
+              const data  ={
+                  name,
+                  email,
+                  companyName
+                }
+                console.log(data)
+                navigate('/success')
+                onSuccess((prev)=>!prev)
+        } else {
+            setErrors(validationErrors);
+        }
+    }
+
+ const validate = () => {
+
+        const newErrors = {};
+
+         if (!name) {
+            newErrors.name = 'Name is required';
+        }
+        if(!address){
+            newErrors.address = 'Address is required';
+        }
+        if(!town){
+            newErrors.town = 'Town is required';
+        }
+        if (!companyName) {
+            newErrors.password = 'Company name is required';
+        }
+        // if(!phone){
+        //     newErrors.phone = 'Phone is required';
+        // }
+        if (!email) {
+            newErrors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email = 'Email format is invalid';
+        }
+        return newErrors;
+    };
+
 
   return (
     <div className='m-20'>
@@ -14,15 +73,18 @@ function BillingDetailPage() {
                     <h1 className='text-xl font-semibold mb-5'>Billing Detail</h1>
                     <div className='flex flex-col'>
                         <span className='text-gray-400'>First Name</span>
-                        <input type="text" className='bg-gray-100 p-2 rounded-sm outline-none' />
+                        <input onChange={(e)=>setName(e.target.value)} type="text" className='bg-gray-100 p-2 rounded-sm outline-none' />
+                         {errors.name && <span style={{ color: 'red' }}>{errors.name}</span>}
                     </div>
                     <div className='flex flex-col'>
                         <span className='text-gray-400'>Company Name</span>
-                        <input type="text" className='bg-gray-100 p-2 rounded-sm outline-none' />
+                        <input onChange={(e)=>setCompanyName(e.target.value)} type="text" className='bg-gray-100 p-2 rounded-sm outline-none' />
+                         {errors.companyName && <span style={{ color: 'red' }}>{errors.companyName}</span>}
                     </div>
                     <div className='flex flex-col'>
                         <span className='text-gray-400'>Street Address</span>
-                        <input type="text" className='bg-gray-100 p-2 rounded-sm outline-none' />
+                        <input onChange={(e)=>setAddress(e.target.value)} type="text" className='bg-gray-100 p-2 rounded-sm outline-none' />
+                         {errors.address && <span style={{ color: 'red' }}>{errors.address}</span>}
                     </div>
                     <div className='flex flex-col'>
                         <span className='text-gray-400'>Apartment, floor,etc. (optional)</span>
@@ -30,15 +92,18 @@ function BillingDetailPage() {
                     </div>
                     <div className='flex flex-col'>
                         <span className='text-gray-400'>Town/City</span>
-                        <input type="text" className='bg-gray-100 p-2 rounded-sm outline-none' />
+                        <input onChange={(e)=>setTown(e.target.value)} type="text" className='bg-gray-100 p-2 rounded-sm outline-none' />
+                        {errors.town && <span style={{ color: 'red' }}>{errors.town}</span>}
                     </div>
-                    <div className='flex flex-col'>
-                        <span className='text-gray-400'>Phone Number</span>
-                        <input type="text" className='bg-gray-100 p-2 rounded-sm outline-none' />
-                    </div>
+                    {/* <div className='flex flex-col'>
+                        <span onChange={(e)=>setPhone(e.target.value)} className='text-gray-400'>Phone Number</span>
+                        <input type="number" className='bg-gray-100 p-2 rounded-sm outline-none' />
+                        {errors.phone && <span style={{ color: 'red' }}>{errors.phone}</span>}
+                    </div> */}
                     <div className='flex flex-col'>
                         <span className='text-gray-400'>Email Address</span>
-                        <input type="text" className='bg-gray-100 p-2 rounded-sm outline-none' />
+                        <input onChange={(e)=>setEmail(e.target.value)}  type="text" className='bg-gray-100 p-2 rounded-sm outline-none' />
+                        {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
                     </div>
                 </div>
                 
@@ -78,7 +143,7 @@ function BillingDetailPage() {
            <input className='outline-none border-2 h-10 w-40 rounded-md border-black' type="text" name="" placeholder='Coupon Code' id="" />
            <button className='bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700'>Apply Coupon</button>
           </div>
-         <button className='bg-red-600 text-white px-10 py-2 rounded-md hover:bg-red-700 my-4'>Place Order</button>
+         <button onClick={(e)=>{submitHandler(e), clearCart()}} className='bg-red-600 text-white px-10 py-2 rounded-md hover:bg-red-700 my-4'>Place Order</button>
      </div>
         </div>
     </div>

@@ -49,7 +49,7 @@ const handleSearch = (e)=>{
                 <Link to={'/'} className="cursor-pointer focus:border-b-2 hover:text-gray-400">Home</Link>
                 <Link to={'/contact'} className="cursor-pointer  focus:border-b-2 hover:text-gray-400">Contact</Link>
                 <Link to={'/about'} className="cursor-pointer  focus:border-b-2 hover:text-gray-400">About</Link>
-                {!userInfo &&
+                {userInfo ? <Link to={'/account'}>{userInfo?.email}</Link>:
                 <Link to={'/signup'} className="cursor-pointer  focus:border-b-2 hover:text-gray-400">Sign Up</Link>
                 }
             </div>
